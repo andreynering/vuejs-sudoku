@@ -101,6 +101,13 @@ var v = new Vue({
       }
 
       this.checkConflicts();
+    },
+    cellClick: function(event) {
+      if (event.target.readOnly) {
+        event.target.blur();
+      } else {
+        event.target.select();
+      }
     }
   }
 });
