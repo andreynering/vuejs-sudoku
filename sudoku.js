@@ -94,7 +94,11 @@ var v = new Vue({
       var el = event.target;
       var i = parseInt(el.getAttribute('data-i'));
       var j = parseInt(el.getAttribute('data-j'));
-      this.game[i][j].value = parseInt(el.value);
+      if (el.value) {
+        this.game[i][j].value = parseInt(el.value);
+      } else {
+        this.game[i][j].value = null;
+      }
 
       this.checkConflicts();
     }
