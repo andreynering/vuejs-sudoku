@@ -8,36 +8,40 @@ function chunk (arr, len) {
   return chunks;
 };
 
-var board = '016002400320009000040103000005000069009050300630000800000306010000400072004900680';
-
-var game = [];
-for (var i = 0; i < 81; i++) {
-  if (board[i] === '0') {
-    game.push(null);
-  } else {
-    game.push(parseInt(board[i]));
-  }
-}
-game = chunk(game, 9);
-for (var i = 0; i < 9; i++) {
-  for (var j = 0; j < 9; j++) {
-    var value = game[i][j];
-    game[i][j] = {
-      i: i,
-      j: i,
-      value: value,
-      editable: value === null,
-      hasConflict: false
-    };
-  }
-}
-
 var v = new Vue({
   el: '#app',
   data: {
-    game: game
+    game: null
   },
   methods: {
+    difficultyClick: function(event) {
+      event.preventDefault();
+
+      var board = randomBoard(event.target.getAttribute('data-difficulty'));
+      var game = [];
+      for (var i = 0; i < 81; i++) {
+        if (board[i] === '0') {
+          game.push(null);
+        } else {
+          game.push(parseInt(board[i]));
+        }
+      }
+      game = chunk(game, 9);
+      for (var i = 0; i < 9; i++) {
+        for (var j = 0; j < 9; j++) {
+          var value = game[i][j];
+          game[i][j] = {
+            i: i,
+            j: i,
+            value: value,
+            editable: value === null,
+            hasConflict: false
+          };
+        }
+      }
+
+      this.game = game;
+    },
     markAllWithoutConflict: function() {
       for (var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
