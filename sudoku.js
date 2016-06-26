@@ -41,6 +41,14 @@ var v = new Vue({
       }
 
       this.game = game;
+      this.saveToLocalStorage();
+    },
+    continueGameClick: function(event) {
+      event.preventDefault();
+      this.game = JSON.parse(localStorage.currentGame);
+    },
+    hasExistingGame: function() {
+      return !!localStorage.currentGame;
     },
     markAllWithoutConflict: function() {
       for (var i = 0; i < 9; i++) {
@@ -105,6 +113,7 @@ var v = new Vue({
       }
 
       this.checkConflicts();
+      this.saveToLocalStorage();
     },
     cellClick: function(event) {
       if (event.target.readOnly) {
@@ -112,6 +121,13 @@ var v = new Vue({
       } else {
         event.target.select();
       }
+    },
+    backClick: function(event) {
+      event.preventDefault();
+      this.game = null;
+    },
+    saveToLocalStorage: function() {
+      localStorage.currentGame = JSON.stringify(this.game);
     }
   }
 });
