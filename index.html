@@ -25,7 +25,7 @@
           <tr v-for="(irow, row) in game">
             <td v-for="(icell, cell) in row"
               :class="['i'+irow, 'j'+icell, cell.editable ? 'editable': 'not-editable', cell.hasConflict ? 'has-conflict' : 'no-conflict']">
-              <input type="cel" :value="cell.value" :readonly="!cell.editable"
+              <input type="tel" :value="cell.value" :readonly="!cell.editable"
                 @change="cellChange" :data-i="irow" :data-j="icell"
                 @click="cellClick" />
             </td>
