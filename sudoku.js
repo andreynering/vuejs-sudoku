@@ -7,11 +7,39 @@ function chunk (arr, len) {
   }
   return chunks;
 };
+function pad(str, length, character) {
+  str = '' + str;
+  while (str.length < length) {
+    str = character + str;
+  }
+  return str;
+};
+function formatTimeFromSeconds(sec) {
+  var str = '';
+
+  hour = Math.floor(sec / 60.0 / 60.0);
+  str += pad(hour, 2, '0');
+
+  minute = Math.floor(sec / 60.0);
+  while (minute >= 60) {
+    minute -= 60;
+  }
+  str += ':' + pad(minute, 2, '0');
+
+  sec = Math.floor(sec);
+  while (sec >= 60) {
+    sec -= 60;
+  }
+  str += ':' + pad(sec, 2, '0');
+
+  return str;
+};
 
 var v = new Vue({
   el: '#app',
   data: {
-    game: null
+    game: null,
+    time: null
   },
   methods: {
     difficultyClick: function(event) {
@@ -41,11 +69,13 @@ var v = new Vue({
       }
 
       this.game = game;
+      this.time = 0;
       this.saveToLocalStorage();
     },
     continueGameClick: function(event) {
       event.preventDefault();
       this.game = JSON.parse(localStorage.currentGame);
+      this.time = parseInt(localStorage.time);
     },
     hasExistingGame: function() {
       return !!localStorage.currentGame;
@@ -125,9 +155,21 @@ var v = new Vue({
     backClick: function(event) {
       event.preventDefault();
       this.game = null;
+      this.time = null;
+    },
+    formatedTime: function() {
+      return formatTimeFromSeconds(this.time);
     },
     saveToLocalStorage: function() {
       localStorage.currentGame = JSON.stringify(this.game);
+      localStorage.time = this.time;
     }
   }
 });
+
+setInterval(function() {
+  if (v.time !== null) {
+    v.time++;
+    v.saveToLocalStorage();
+  }
+}, 1000);

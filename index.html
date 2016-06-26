@@ -16,7 +16,7 @@
     <div id="app">
       <div class="dialog" v-if="game === null">
         <p>Please, choose the difficulty:</p>
-        <p v-if="hasExistingGame">
+        <p v-if="hasExistingGame()">
           <button @click="continueGameClick">Continue existing game</button>
         </p>
         <button @click="difficultyClick" data-difficulty="easy">Easy</button>
@@ -35,8 +35,9 @@
           </tr>
         </tbody>
       </table>
-      <div class="controls">
-        <p v-if="game !== null"><a href="#" @click="backClick">Back</a>
+      <div class="controls" v-if="game !== null">
+        <p><a href="#" @click="backClick">Back</a></p>
+        <p>{{formatedTime()}}</p>
       </div>
     </div>
 
