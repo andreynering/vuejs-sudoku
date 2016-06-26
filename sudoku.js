@@ -92,10 +92,14 @@ var v = new Vue({
     },
     cellChange: function(event) {
       var el = event.target;
+      var value = el.value;
+      if (value.length > 1) {
+        value = value[0];
+      }
       var i = parseInt(el.getAttribute('data-i'));
       var j = parseInt(el.getAttribute('data-j'));
-      if (el.value) {
-        this.game[i][j].value = parseInt(el.value);
+      if (value) {
+        this.game[i][j].value = parseInt(value);
       } else {
         this.game[i][j].value = null;
       }
