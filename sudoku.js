@@ -128,15 +128,20 @@ var v = new Vue({
       this.checkSubset([c[3][6], c[3][7], c[3][8], c[4][6], c[4][7], c[4][8], c[5][6], c[5][7], c[5][8]]);
       this.checkSubset([c[6][6], c[6][7], c[6][8], c[7][6], c[7][7], c[7][8], c[8][6], c[8][7], c[8][8]]);
     },
-    cellChange: function(event) {
+    cellKeyUp: function(event) {
       var el = event.target;
       var value = el.value;
       if (value.length > 1) {
-        value = value[0];
+        el.value = value[0];
+        value = el.value;
       }
+      if (!/^[1-9]$/.test(value)) {
+        event.target.value = '';
+      }
+
       var i = parseInt(el.getAttribute('data-i'));
       var j = parseInt(el.getAttribute('data-j'));
-      if (value) {
+      if (el.value.length > 0) {
         this.game[i][j].value = parseInt(value);
       } else {
         this.game[i][j].value = null;
@@ -144,6 +149,10 @@ var v = new Vue({
 
       this.checkConflicts();
       this.saveToLocalStorage();
+
+      if (value.length > 0) {
+        event.target.blur();
+      }
     },
     cellClick: function(event) {
       if (event.target.readOnly) {
