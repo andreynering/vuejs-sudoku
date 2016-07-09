@@ -1,0 +1,26 @@
+{
+  "name": "vuejs-sudoku",
+  "version": "1.0.0",
+  "description": "VueJS implementation of Sudoku",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreynering/vuejs-sudoku.git"
+  },
+  "keywords": [
+    "vuejs",
+    "sudoku"
+  ],
+  "author": "Andrey Nering",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andreynering/vuejs-sudoku/issues"
+  },
+  "homepage": "https://github.com/andreynering/vuejs-sudoku#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.0.11",
+    "gulp-concat": "^2.6.0",
+    "gulp-less": "^3.1.0",
+    "gulp-minify": "0.0.12"
+  }
+}
